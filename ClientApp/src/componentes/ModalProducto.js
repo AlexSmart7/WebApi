@@ -49,7 +49,7 @@ const ModalProducto = ({mostrarModal, setMostrarModal, guardarProducto, editar, 
 
         <Modal isOpen={mostrarModal}>
             <ModalHeader>
-                Registar Producto
+                {producto.id == 0 ? "Registar Producto" : "Editar Producto"}
             </ModalHeader>
             <ModalBody>
                 <Form>

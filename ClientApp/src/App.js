@@ -68,6 +68,23 @@ const App = () => {
 
     }
 
+    const eliminarProducto = async (id) => {
+
+        var respuesta = window.confirm("desea eliminar el producto")
+
+        if (!respuesta) {
+            return;
+        }
+
+        const response = await fetch("api/producto/Eliminar/" + id, {
+            method: 'DELETE',
+        })
+
+        if (response.ok) {
+            mostrarProductos();
+        }
+    }
+
     return (
         <Container>
             <Row className="mt-5">
@@ -84,7 +101,9 @@ const App = () => {
                             <TablaProductos data={productos}
                                 setEditar={setEditar}
                                 mostrarModal={mostrarModal}
-                                setMostrarModal={setMostrarModal }
+                                setMostrarModal={setMostrarModal}
+
+                                eliminarProducto={eliminarProducto}
                             />
                         </CardBody>
                     </Card>

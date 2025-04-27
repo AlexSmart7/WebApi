@@ -2,7 +2,7 @@
 import { Table, Button } from 'reactstrap';
 
 
-const TablaProductos = ({data, setEditar, mostrarModal, setMostrarModal}) => {
+const TablaProductos = ({ data, setEditar, mostrarModal, setMostrarModal, eliminarProducto }) => {
 
     const enviarDatos = (producto) => {
         setEditar(producto)
@@ -37,7 +37,8 @@ const TablaProductos = ({data, setEditar, mostrarModal, setMostrarModal}) => {
                                     <td>
                                         <Button color="primary" size="sm" className="me-2"
                                             onClick={() => enviarDatos(item)}>Editar</Button>
-                                        <Button color="danger" size="sm">Eliminar</Button>
+                                        <Button color="danger" size="sm"
+                                            onClick={() => eliminarProducto(item.id)}>Eliminar</Button>
                                     </td>
                                 </tr>
                             ))
