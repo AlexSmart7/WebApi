@@ -86,6 +86,10 @@ const App = () => {
     }
 
     return (
+        <>
+
+            <h1 className="text-center mt-4">Prueba Tecnica Desarrollo FullStack</h1>
+
         <Container>
             <Row className="mt-5">
                 <Col sm="12">
@@ -120,6 +124,7 @@ const App = () => {
                 editarProducto={editarProducto }
             />
         </Container>
+        </>
     )
 }
 
