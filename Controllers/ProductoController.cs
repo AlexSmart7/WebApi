@@ -49,7 +49,7 @@ namespace WebApi.Controllers
         }
 
         [HttpDelete]
-        [Route("Eliminar/{id:int")]
+        [Route("Eliminar/{id:int}")]
 
         public async Task<IActionResult> Eliminar(int id)
         {

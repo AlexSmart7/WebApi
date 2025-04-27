@@ -1,8 +1,8 @@
-﻿import React from 'react';
-import { Table } from 'reactstrap';
+﻿
+import { Table, Button } from 'reactstrap';
 
 
-const TablaProductos = () => {
+const TablaProductos = ({data}) => {
 
 
     return (
@@ -16,14 +16,29 @@ const TablaProductos = () => {
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td colSpan="4" style={{ textAlign: "center" }}>
-                        No hay productos disponibles
-                    </td>
-                </tr>
+                {
+                    (data.length < 1) ? (
+                        <tr>
+                            <td colSpan="4" style={{ textAlign: "center" }}>
+                                No hay productos disponibles
+                            </td>
+                        </tr>
+                    ) : (
+                            data.map((item) => (
+                                <tr key={item.id }>
+                                    <td>{item.id }</td>
+                                    <td>{item.nombre}</td>
+                                    <td>{item.precio}</td>
+                                    <td>
+                                        <Button color="primary" size="sm" className="me-2">Editar</Button>
+                                        <Button color="danger" size="sm">Eliminar</Button>
+                                    </td>
+                                </tr>
+                            ))
+                    )
+                }
             </tbody>
         </Table>
-
     )
 };
 
