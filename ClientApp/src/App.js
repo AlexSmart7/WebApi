@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import { Container, Row, Col, Card, CardHeader, CardBody, Button } from 'reactstrap';
+import ModalProducto from "./componentes/ModalProducto";
 import TablaProductos from './componentes/TablaProductos';
 
 
@@ -7,6 +8,8 @@ import TablaProductos from './componentes/TablaProductos';
 const App = () => {
 
     const [productos, setProductos] = useState([])
+
+    const [mostrarModal, setMostrarModal] = useState(false)
 
     const mostrarProductos = async () => {
 
@@ -23,7 +26,23 @@ const App = () => {
 
     useEffect(() => {
         mostrarProductos()
-    },[])
+    }, [])
+
+    const guardarProducto = async (producto) => {
+
+        const response = await fetch("api/producto/Guardar", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            },
+            body: JSON.stringify(producto)
+        })
+
+        if (response.ok) {
+            setMostrarModal(!mostrarModal);
+            mostrarProductos();
+        }
+    }
 
     return (
         <Container>
@@ -34,13 +53,21 @@ const App = () => {
                             <h5>Lista de Productos</h5>
                         </CardHeader>
                         <CardBody>
-                            <Button size="sm" color="success">Nuevo Producto</Button>
+                            <Button size="sm" color="success"
+                                onClick={() => setMostrarModal(!mostrarModal)}
+                            >Nuevo Producto</Button>
                             <hr></hr>
                             <TablaProductos data={productos} />
                         </CardBody>
                     </Card>
                 </Col>
             </Row>
+
+            <ModalProducto
+                mostrarModal={mostrarModal}
+                setMostrarModal={setMostrarModal}
+                guardarProducto={guardarProducto }
+            />
         </Container>
     )
 }
