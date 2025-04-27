@@ -11,6 +11,8 @@ const App = () => {
 
     const [mostrarModal, setMostrarModal] = useState(false)
 
+    const [editar, setEditar] = useState(null)
+
     const mostrarProductos = async () => {
 
         const response = await fetch("api/producto/Lista")
@@ -30,6 +32,11 @@ const App = () => {
 
     const guardarProducto = async (producto) => {
 
+        if (!producto.nombre || producto.nombre.trim() === "" || !producto.precio) {
+            alert("Todos los campos son obligatorios");
+            return;
+        }
+
         const response = await fetch("api/producto/Guardar", {
             method: 'POST',
             headers: {
@@ -42,6 +49,23 @@ const App = () => {
             setMostrarModal(!mostrarModal);
             mostrarProductos();
         }
+    }
+
+    const editarProducto = async (producto) => {
+
+        const response = await fetch("api/producto/Editar", {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            },
+            body: JSON.stringify(producto)
+        })
+
+        if (response.ok) {
+            setMostrarModal(!mostrarModal);
+            mostrarProductos();
+        }
+
     }
 
     return (
@@ -57,7 +81,11 @@ const App = () => {
                                 onClick={() => setMostrarModal(!mostrarModal)}
                             >Nuevo Producto</Button>
                             <hr></hr>
-                            <TablaProductos data={productos} />
+                            <TablaProductos data={productos}
+                                setEditar={setEditar}
+                                mostrarModal={mostrarModal}
+                                setMostrarModal={setMostrarModal }
+                            />
                         </CardBody>
                     </Card>
                 </Col>
@@ -66,7 +94,11 @@ const App = () => {
             <ModalProducto
                 mostrarModal={mostrarModal}
                 setMostrarModal={setMostrarModal}
-                guardarProducto={guardarProducto }
+                guardarProducto={guardarProducto}
+
+                editar={editar}
+                setEditar={setEditar}
+                editarProducto={editarProducto }
             />
         </Container>
     )
