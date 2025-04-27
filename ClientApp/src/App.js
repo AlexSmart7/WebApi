@@ -1,22 +1,28 @@
-import React, { Component } from 'react';
-import { Route, Routes } from 'react-router-dom';
-import AppRoutes from './AppRoutes';
-import { Layout } from './components/Layout';
-import './custom.css';
+import { Container, Row, Col, Card, CardHeader, CardBody, Button } from 'reactstrap';
+import TablaProductos from './componentes/TablaProductos';
 
-export default class App extends Component {
-  static displayName = App.name;
 
-  render() {
+
+const App = () => {
+
     return (
-      <Layout>
-        <Routes>
-          {AppRoutes.map((route, index) => {
-            const { element, ...rest } = route;
-            return <Route key={index} {...rest} element={element} />;
-          })}
-        </Routes>
-      </Layout>
-    );
-  }
+        <Container>
+            <Row className="mt-5">
+                <Col sm="12">
+                    <Card>
+                        <CardHeader>
+                            <h5>Lista de Productos</h5>
+                        </CardHeader>
+                        <CardBody>
+                            <Button></Button>
+                            <hr></hr>
+                            <TablaProductos />
+                        </CardBody>
+                    </Card>
+                </Col>
+            </Row>
+        </Container>
+    )
 }
+
+export default App;
